@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>slotti masina</title>
+    <link rel="stylesheet" href="slotmachine.css">
+</head>
+<body>
+    <img src="kuvat/explosion-green-screen.gif" alt="explosion" style="display:none; position:absolute; top:100px; left:400px; z-index:10;" />
+    <img src="C:\Users\pa0645\OneDrive - Turun kaupunki, kasvatus ja opetus\Tiedostot\projekti syssy 25\Projekti-Syksy-25\Quicksand\Quicksand-VariableFont_wght.ttf" alt="" style="display: none; position: absolute;">
+    <div class="placement">
+    <header>
+        <h1>Slotti Masina</h1>
+    </header>
+    </div>
+    <div class="placement">
+        raha: <span id="raha">0</span>
+    <main style="position: relative;">
+        <img src="kuvat/slotmachine-removebg-preview.png" alt="masina" style="display: block; position: relative; z-index: 1;">
+        <div class="box" style="position: absolute; top: 150; left: 59; z-index: 2;"></div> <div class="box" style="position: absolute; top: 150; left: 179; z-index: 2;"></div><div class="box" style="position: absolute; top: 150; left: 300; z-index: 2;"></div></main>
+    </main>
+    </div>
+    <button onclick="spin()" style="width: 1cm; height: 1cm; position: absolute; top: 310; left: 830; z-index:4 ;"></button>
+</body>
+</html>
+<script>
+    raha = 0;
+    const boxes = document.querySelectorAll('.box');
+    const images = ['kuvat/lemon.jpg', 'kuvat/kirsikat.png', 'kuvat/seiska-removebg-preview.png', 'kuvat/jakpot.png'];
+    boxes.forEach(box => {
+        box.style.width = '100px';
+        box.style.height = '200px';
+        box.style.border = '2px solid #333';
+        box.style.backgroundPosition = 'center';
+        box.style.backgroundRepeat = 'no-repeat';
+        box.style.backgroundSize = 'contain';
+    });
+    function getRandomImage() {
+        return images[Math.floor(Math.random() * images.length)];
+    }
+
+    function spin() {
+        const results = [];
+        boxes.forEach(box => {
+            const img = getRandomImage();
+            box.style.backgroundImage = `url(${img})`;
+            box.style.backgroundSize = 'cover';
+            results.push(img);
+        });
+
+        if (results[0] === results[1] && results[1] === results[2]) {
+            if (results[0] === 'kuvat/lemon.jpg') {
+                raha += 10;
+            } else if (results[0] === 'kuvat/kirsikat.png') {
+                raha += 5;
+            } else if (results[0] === 'kuvat/seiska-removebg-preview.png') {
+                raha += 20;
+            } else if (results[0] === 'kuvat/jakpot.png') {
+                raha += 50;
+                results[0] = results[1] = results[2] = 'kuvat/jakpot.png';
+                const explosionGif = document.querySelector('img[src="kuvat/explosion-green-screen.gif"]');
+                explosionGif.style.display = 'block';
+                explosionGif.style.position = 'fixed';
+                explosionGif.style.top = '0';
+                explosionGif.style.left = '0';
+                explosionGif.style.width = '100vw';
+                explosionGif.style.height = '100vh';
+                explosionGif.style.zIndex = '9999';
+                setTimeout(() => {
+                    explosionGif.style.display = 'none';
+                }, 1500);
+            }
+        } else {
+            raha -= 1;
+        }
+        document.getElementById('raha').innerText = raha;
+    }
+</script>
