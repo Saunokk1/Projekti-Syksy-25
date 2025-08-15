@@ -1,0 +1,24 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kivi, sakset, paperi</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    function randomize() {
+        const choices = ['kivi', 'sakset', 'paperi'];
+        const randomIndex = Math.floor(Math.random() * choices.length);
+        return choices[randomIndex];
+        if (choices[randomIndex] === 'kivi') {
+        Image.src = 'kivi.png';
+        } else if (choices[randomIndex] === 'sakset') {
+            Image.src = 'sakset.png';
+        } else {
+            Image.src = 'paperi.png';
+        }
+    }
+</script>
