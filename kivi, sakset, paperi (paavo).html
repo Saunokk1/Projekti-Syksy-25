@@ -3,22 +3,115 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kivi, sakset, paperi</title>
+    <link rel="stylesheet" href="kps.css">
+    <link rel="icon" href="kuvat/kps.ico" type="image/x-icon">
 </head>
 <body>
-    
+    <div class="placement">
+    <header style="font-size: 4em;"> KPS</header>
+    </div>
+    <div class="placement">
+    <div class="box" id="playerChoice">
+        <img id="playerImage" src="" alt="Valintasi" style="width:100px; display:none;">
+    </div>
+    <div class="box" id="computerChoice">
+            <img id="computerImage" src="" alt="Tietokoneen valinta" style="width:100px; display:none;">
+    </div>
+    </div>
+    <div style="display: flex; justify-content: center; gap: 20px; padding: 10px;">
+        <button id="kivi">kivi</button>
+        <button id="sakset">sakset</button>
+        <button id="paperi">paperi</button>
+    </div>
+    <p id="result"></p>
 </body>
 </html>
 <script>
-    function randomize() {
-        const choices = ['kivi', 'sakset', 'paperi'];
+    tietokonepiste= 0;
+    pelaajapiste = 0;
+    for (let i = 0; i < 5; i++) {
+  console.log("Iteration:", i);
+}
+   const resultDisplay = document.getElementById("result");
+const choices = ["kivi", "paperi", "sakset"];
+function randomize() {
+        const computerChoice = ['kivi', 'sakset', 'paperi'];
         const randomIndex = Math.floor(Math.random() * choices.length);
-        return choices[randomIndex];
-        if (choices[randomIndex] === 'kivi') {
-        Image.src = 'kivi.png';
-        } else if (choices[randomIndex] === 'sakset') {
-            Image.src = 'sakset.png';
-        } else {
-            Image.src = 'paperi.png';
-        }
+        return computerChoice[randomIndex];}
+
+document.getElementById("kivi").addEventListener("click", () => playGame("kivi"));
+document.getElementById("sakset").addEventListener("click", () => playGame("sakset"));
+document.getElementById("paperi").addEventListener("click", () => playGame("paperi") );
+
+
+function setPlayerImage(choice) {
+    const playerImage = document.getElementById("playerImage");
+    let imgSrc = "";
+    if (choice === "kivi") imgSrc = "kuvat/kivi.png";
+    else if (choice === "sakset")imgSrc = "kuvat/sakset.png";
+    else if (choice === "paperi") imgSrc = "kuvat/paperi.png";
+    if (imgSrc) {
+        playerImage.src = imgSrc;
+        playerImage.style.display = "inline";
+        playerImage.alt = choice;
+    } else {
+        playerImage.src = "";
+        playerImage.style.display = "none";
+        playerImage.alt = "Valintasi";
     }
+}
+function setComputerImage(choice) {
+    const computerImage = document.getElementById("computerImage");
+    let imgSrc = "";
+    if (choice === "kivi") imgSrc = "kuvat/kivi.png";
+    else if (choice === "sakset") imgSrc = "kuvat/sakset.png";
+    else if (choice === "paperi") imgSrc = "kuvat/paperi.png";
+    if (imgSrc) {
+        computerImage.src = imgSrc;
+        computerImage.style.display = "inline";
+        computerImage.alt = choice;
+    } else {
+        computerImage.src = "";
+        computerImage.style.display = "none";
+        computerImage.alt = "Tietokoneen valinta";
+    }
+}
+function playGame(playerChoice) {
+  setPlayerImage(playerChoice);
+
+  const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+  setComputerImage(computerChoice); 
+
+if (!document.getElementById("scoreDisplay")) {
+    const scoreDiv = document.createElement("div");
+    scoreDiv.id = "scoreDisplay";
+    scoreDiv.style.textAlign = "center";
+    scoreDiv.style.fontSize = "2em";
+    scoreDiv.style.margin = "10px";
+    scoreDiv.textContent = "Pelaaja: " + pelaajapiste + " - " + tietokonepiste + " :Tietokone";
+    document.body.insertBefore(scoreDiv, document.getElementById("result"));
+    
+}
+
+if (typeof window.playerScore === "undefined") window.playerScore = 0;
+if (typeof window.computerScore === "undefined") window.computerScore = 0;
+
+let result;
+document.getElementById("scoreDisplay").textContent = "Pelaaja: " + pelaajapiste + " - " + tietokonepiste + " :Tietokone";
+  if (playerChoice === computerChoice) {
+    result = "Tasapeli!";
+  } else if (
+    (playerChoice === "kivi" && computerChoice === "sakset") ||
+    (playerChoice === "paperi" && computerChoice === "kivi") ||
+    (playerChoice === "sakset" && computerChoice === "paperi")
+  ) {
+    result = `Voitit! ${playerChoice} voittaa ${computerChoice}.`; pelaajapiste++; 
+  } else {
+    result = `Hävisit! ${computerChoice} voittaa ${playerChoice}.`; tietokonepiste++;
+  }
+
+  resultDisplay.textContent = result;
+}
+
+
 </script>
