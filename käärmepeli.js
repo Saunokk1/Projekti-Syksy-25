@@ -64,8 +64,8 @@ const initGame = () => {
         score++;
         highScore = score >= highScore ? score : highScore;
         localStorage.setItem("high-score", highScore);
-        scoreElement.innerText = `Score: ${score}`;
-        highScoreElement.innerText = `High Score: ${highScore}`;
+        scoreElement.innerText = `Pisteet: ${score}`;
+        highScoreElement.innerText = `Ennätys: ${highScore}`;
     }
 
     snakeX += velocityX;
