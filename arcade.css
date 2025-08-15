@@ -128,3 +128,8 @@ h1, h2, h3, h4, h5 {
     0%   {filter: grayscale(50%);}
     100% {filter: grayscale(0%);}
 }
+
+
+h2 {
+    margin-left: 5px;
+}
