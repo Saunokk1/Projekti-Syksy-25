@@ -1,18 +1,19 @@
 var dealerSum = 0;
 var yourSum = 0;
-
 var dealerAceCount = 0;
 var yourAceCount = 0;
-
 var hidden;
 var deck;
-
 var canHit = true;
 
 window.onload = function () {
     buildDeck();
     shuffleDeck();
     startGame();
+    
+    document.getElementById("uuspeli").onclick = function() {
+        location.reload();
+    };
 };
 
 function buildDeck() {
@@ -37,6 +38,20 @@ function shuffleDeck() {
 }
 
 function startGame() {
+   
+    dealerSum = 0;
+    yourSum = 0;
+    dealerAceCount = 0;
+    yourAceCount = 0;
+    canHit = true;
+    
+    document.getElementById("dealer-cards").innerHTML = "";
+    document.getElementById("your-cards").innerHTML = "";
+    document.getElementById("results").innerText = "";
+    document.getElementById("dealer-sum").innerText = "";
+    document.getElementById("your-sum").innerText = "";
+
+    
     hidden = deck.pop();
     dealerSum += getValue(hidden);
     dealerAceCount += checkAce(hidden);
@@ -46,15 +61,15 @@ function startGame() {
     hiddenImg.id = "hidden";
     document.getElementById("dealer-cards").append(hiddenImg);
 
-    while (dealerSum < 17) {
-        let cardImg = document.createElement("img");
-        let card = deck.pop();
-        cardImg.src = "cards/" + card + ".png";
-        dealerSum += getValue(card);
-        dealerAceCount += checkAce(card);
-        document.getElementById("dealer-cards").append(cardImg);
-    }
+    
+    let dealerCard = deck.pop();
+    let dealerCardImg = document.createElement("img");
+    dealerCardImg.src = "cards/" + dealerCard + ".png";
+    dealerSum += getValue(dealerCard);
+    dealerAceCount += checkAce(dealerCard);
+    document.getElementById("dealer-cards").append(dealerCardImg);
 
+   
     for (let i = 0; i < 2; i++) {
         let cardImg = document.createElement("img");
         let card = deck.pop();
@@ -64,6 +79,22 @@ function startGame() {
         document.getElementById("your-cards").append(cardImg);
     }
 
+  
+    document.getElementById("your-sum").innerText = reduceAce(yourSum, yourAceCount);
+
+   
+    let playerTotal = reduceAce(yourSum, yourAceCount);
+    if (playerTotal === 21) {
+        stay(); 
+    }
+
+    
+    let hitBtn = document.getElementById("hit");
+    let stayBtn = document.getElementById("stay");
+    
+    hitBtn.replaceWith(hitBtn.cloneNode(true));
+    stayBtn.replaceWith(stayBtn.cloneNode(true));
+    
     document.getElementById("hit").addEventListener("click", hit);
     document.getElementById("stay").addEventListener("click", stay);
 }
@@ -80,18 +111,36 @@ function hit() {
     yourAceCount += checkAce(card);
     document.getElementById("your-cards").append(cardImg);
 
-    if (reduceAce(yourSum, yourAceCount) > 21) {
+    let playerTotal = reduceAce(yourSum, yourAceCount);
+    document.getElementById("your-sum").innerText = playerTotal;
+
+    if (playerTotal > 21) {
         canHit = false;
+        stay(); 
     }
 }
 
 function stay() {
+    canHit = false;
+    
+    
+    document.getElementById("hidden").src = "cards/" + hidden + ".png";
+
+   
+    while (reduceAce(dealerSum, dealerAceCount) < 17) {
+        let cardImg = document.createElement("img");
+        let card = deck.pop();
+        cardImg.src = "cards/" + card + ".png";
+        dealerSum += getValue(card);
+        dealerAceCount += checkAce(card);
+        document.getElementById("dealer-cards").append(cardImg);
+    }
+
+    
     dealerSum = reduceAce(dealerSum, dealerAceCount);
     yourSum = reduceAce(yourSum, yourAceCount);
 
-    canHit = false;
-    document.getElementById("hidden").src = "cards/" + hidden + ".png";
-
+    
     let message = "";
     if (yourSum > 21) {
         message = "Sinä hävisit!";
@@ -105,6 +154,7 @@ function stay() {
         message = "Sinä hävisit!";
     }
 
+    
     document.getElementById("dealer-sum").innerText = dealerSum;
     document.getElementById("your-sum").innerText = yourSum;
     document.getElementById("results").innerText = message;
@@ -134,3 +184,5 @@ function reduceAce(playerSum, playerAceCount) {
     }
     return playerSum;
 }
+
+
