@@ -37,6 +37,7 @@ body {
     color: white;
     overflow: hidden;
     z-index: 100;
+    
 }
 
 h1 {
@@ -111,6 +112,7 @@ h1, h2, h3, h4, h5 {
     border-radius: 20px;
     border-bottom-left-radius: 5px;
     transition: ease-in 0.5s;
+    
 }
 
 .gamecard > img:hover, .gamecard > a > img:hover {
@@ -133,9 +135,7 @@ h2 {
     margin-left: 5px;
 }
 
-.header img {
-    height: 50px;
-    width:50px;  
-    
-
+.header a {
+    text-decoration: none;
 }
+

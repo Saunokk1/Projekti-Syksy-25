@@ -11,6 +11,25 @@
 }
 
 
+h1 {
+     background: -webkit-linear-gradient(90turn, #ff00fb, #00ffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    grid-area: header;
+    font-family: "Audiowide";
+    justify-content: center;
+    background-color: rgb(53, 52, 57);
+    color: white;
+    overflow: hidden;
+    z-index: 100;
+    
+}
+
+a {
+    text-decoration: none;
+}
+
 
 body {
     font-family: Quicksand;
