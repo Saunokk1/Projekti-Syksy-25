@@ -1,3 +1,25 @@
+.header {
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 3px solid #444;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+.keksi:active {
+    transform: scale(0.97);
+    transition: transform 0.05s ease-in-out;
+}
+
+.achievementButton {
+    grid-area: achievements;
+}
+
+.container {
+    display: grid;
+}
+
 .menu-button {
             position: fixed;
             top: 20px;
@@ -50,14 +72,6 @@
 
         .slide-menu.active {
             right: 0;
-        }
-
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-bottom: 1px solid #eee;
         }
 
         .menu-title {
