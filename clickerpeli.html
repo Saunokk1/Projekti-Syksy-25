@@ -2,15 +2,49 @@
 <head>
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <link rel="stylesheet" href=".css" >
+    <link rel="stylesheet" href="clickerpeli.css" >
     <link rel="icon" type="image/x-icon" href="" style="border-radius: 25px;">
     <title>Clicker Game</title>
 </head>
 <body>
 <div class="container">
-    <div class
     <div class="header"><h1>Clicker Game</h1></div>
+    <div class="stats">
+       Pisteet: <span id="pisteet">0</span>
+       Pisteet/Click: <span id="pisteetPerClick">1</span>
+       Pisteet/Second: <span id="pisteetPerSecond">0</span>
+    </div>
+    <div class="keksi">
+        <input type="image" onclick="lisääpiste()" src="kuvat/keksi.png" alt="Klikkaa Minua!" style="width: 256px; 
+        height: 256px; 
+        border-radius: 128px; 
+        position:absolute; 
+        cursor: pointer;  
+        "></div>
+    <button class="achievement-button" id="achievementButton" onclick="avaaSaavutukset()">🏆</button>
+
+    <button class="menu-button" id="menuButton">Kauppa</button>
+    <div class="menu-overlay" id="menuoverlay"></div>
+
+    <div class="slide-menu" id="slideMenu">
+        <button class="close-button" id="closeButton">&times;</button>
+        <div class="menu-content" id="menuContent">
+            <div class="+1click">
+                <p>Hinta: <span id="ppchinta">15</span></p>
+                <button class="button" onclick="ostappc()">+1 Piste/Click</button>
+            </div>
+
+            <div class="+1autoclick">
+                <p>Hinta: <span id="ppshinta">75</span></p>
+                <button class="button" onclick="ostapps()">+1 Autoclick/Second</button>
+            </div>
+            
+            <div class=""
+            <!--Kauppa-->
+        </div>
+    </div>
+
 </div>
-<script></script>
+<script src="clickerpeli.js"></script>
 </body>
 </html>
