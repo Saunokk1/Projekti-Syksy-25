@@ -2,30 +2,41 @@ body {
     margin: 0;
     overflow: hidden;
 }
+
+::-webkit-scrollbar {
+    width: 8px;
+}
 ::-webkit-scrollbar-track {
     background-color: rgb(72, 71, 79);
+}
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
 }
 
 @font-face {
     font-family: "Quicksand";
-    src: url(Quicksand/Quicksand-VariableFont_wght.ttf);
+    src: url("Quicksand/Quicksand-VariableFont_wght.ttf") format("truetype");
     font-weight: normal;
 }
 
 @font-face {
     font-family: "Audiowide";
-    src: url(Audiowide/Audiowide-Regular.ttf);
+    src: url("Audiowide/Audiowide-Regular.ttf") format("truetype");
     font-weight: normal;
 }
 
 .container {
     display: grid;
     grid-template-areas: 
-    "header header"
-    "menu content"
-    "footer footer";
+        "header header"
+        "menu content"
+        "footer footer";
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 0fr 3fr;
+    grid-template-columns: 250px 1fr; /* fixed */
 }
 
 .header {
@@ -37,7 +48,6 @@ body {
     color: white;
     overflow: hidden;
     z-index: 100;
-    
 }
 
 h1 {
@@ -50,7 +60,6 @@ h1 {
     display: flex;
     justify-content: end;
 }
-
 #active > div {
     width: 5px;
 }
@@ -62,8 +71,7 @@ h1 {
     grid-area: menu;
     background-color: rgb(37, 36, 41);
     color: white;
-    border-right: solid rgb(53, 52, 57);
-    border-width: 1px;
+    border-right: 1px solid rgb(53, 52, 57);
 }
 
 .menu > img, #active > img, .menu > div > a > img, .menu > a > img {
@@ -73,10 +81,10 @@ h1 {
 }
 
 .content {
-    height: 100vw;
     grid-area: content;
     background-color: rgb(37, 36, 41);
     padding-left: 1rem;
+    height: 100%; /* fixed */
 }
 
 .content > h2, .content > div > div > div > h2 {
@@ -85,6 +93,7 @@ h1 {
 
 .content > p, .content > div > div > div > p {
     color: white;
+    padding-right: 25rem;
 }
 
 .footer {
@@ -100,8 +109,8 @@ p, li {
 a {
     font-family: "Quicksand";
     color: rgb(171, 171, 255);
+    text-decoration: none;
 }
-
 a:visited {
     color: rgb(171, 171, 255);
 }
@@ -122,9 +131,7 @@ h1, h2, h3, h4, h5 {
     border-radius: 20px;
     border-bottom-left-radius: 5px;
     transition: ease-in 0.5s;
-    
 }
-
 .gamecard > img:hover, .gamecard > a > img:hover {
     filter: grayscale(0%);
 }
@@ -140,7 +147,6 @@ h1, h2, h3, h4, h5 {
     100% {filter: grayscale(0%);}
 }
 
-
 h2 {
     margin-left: 5px;
 }
@@ -149,14 +155,7 @@ h2 {
     text-decoration: none;
 }
 
-<<<<<<< HEAD
-=======
 #arcadephoto {
     width: 90vw;
-    height: 20%;
+    height: auto; 
 }
-
-.content > p {
-    padding-right: 25rem;
-}
->>>>>>> e4d041f652c92467c61bd40e152b57f44aa55bb1

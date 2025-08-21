@@ -1,9 +1,10 @@
 var board;
-var playero = "O"
-var playerx = "X"
-var currPlayer = player0;
-var Gameover = false;
+var playerO = "O";
+var playerX = "X";
+var currPlayer = playerO; 
+var gameOver = false;
 
-
-
-window.onload = function
+window.onload = function() {
+    
+    console.log("Game loaded. Current player:", currPlayer);
+};
