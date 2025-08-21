@@ -66,7 +66,7 @@ h1 {
     border-width: 1px;
 }
 
-.menu > img, #active > img, .menu > a > img {
+.menu > img, #active > img, .menu > div > a > img, .menu > a > img {
     aspect-ratio: 1;
     width: 2.5rem;
     margin: 0.5rem;
@@ -79,11 +79,11 @@ h1 {
     padding-left: 1rem;
 }
 
-.content > h2 {
+.content > h2, .content > div > div > div > h2 {
     color: rgb(187, 107, 205);
 }
 
-.content > p {
+.content > p, .content > div > div > div > p {
     color: white;
 }
 
@@ -92,8 +92,18 @@ h1 {
     font-family: "Quicksand";
 }
 
-p {
+p, li {
     font-family: "Quicksand";
+    color: white;
+}
+
+a {
+    font-family: "Quicksand";
+    color: rgb(171, 171, 255);
+}
+
+a:visited {
+    color: rgb(171, 171, 255);
 }
 
 h1, h2, h3, h4, h5 {
@@ -139,3 +149,14 @@ h2 {
     text-decoration: none;
 }
 
+<<<<<<< HEAD
+=======
+#arcadephoto {
+    width: 90vw;
+    height: 20%;
+}
+
+.content > p {
+    padding-right: 25rem;
+}
+>>>>>>> e4d041f652c92467c61bd40e152b57f44aa55bb1
