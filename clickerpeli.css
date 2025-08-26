@@ -2,9 +2,13 @@
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border: 3px solid #444;
   border-radius: 10px;
-  padding: 20px;
   margin-bottom: 30px;
   box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  grid-area: header;
+}
+
+body {
+    background-color: rgb(59, 57, 65);
 }
 
 .keksi:active {
@@ -12,13 +16,25 @@
     transition: transform 0.05s ease-in-out;
 }
 
-.achievementButton {
-    grid-area: achievements;
+.achievement-button {
+    background-color :#1856a3;
+    width: 45px;
+    height: 45px;
 }
 
 .container {
     display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
+
+.div1 { grid-area: 1 / 1 / 6 / 2; top: 300px; }
+
+.div2 { grid-area: 1 / 2 / 6 / 5; }
+
+.div3 { grid-area: 1 / 5 / 6 / 6; }
 
 .menu-button {
             position: fixed;

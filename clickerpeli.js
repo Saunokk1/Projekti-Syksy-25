@@ -10,6 +10,8 @@ const ppchintaElement = document.getElementById("ppchinta");
 const pisteetPerSecondElement = document.getElementById('pisteetPerSecond');
 const ppshintaElement = document.getElementById("ppshinta");
 
+let 
+
 function paivitaDisplay() {
     pisteetElement.textContent = pisteet;
     pisteetPerClickElement.textContent = pisteetPerClick;
