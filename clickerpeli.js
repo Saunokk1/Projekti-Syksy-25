@@ -10,8 +10,6 @@ const ppchintaElement = document.getElementById("ppchinta");
 const pisteetPerSecondElement = document.getElementById('pisteetPerSecond');
 const ppshintaElement = document.getElementById("ppshinta");
 
-let 
-
 function paivitaDisplay() {
     pisteetElement.textContent = pisteet;
     pisteetPerClickElement.textContent = pisteetPerClick;
@@ -29,7 +27,7 @@ function ostappc() {
     if (pisteet >= ppchinta) {
         pisteet -= ppchinta;
         pisteetPerClick++;
-        ppchinta *= 2;
+        ppchinta *= 3;
         paivitaDisplay();
     }   else {
         alert("Ei tarpeeksi pisteitä!");
@@ -40,7 +38,7 @@ function ostapps() {
     if (pisteet >= ppshinta) {
         pisteet -= ppshinta;
         pisteetPerSecond++;
-        ppshinta *= 2.2;
+        ppshinta *= 2.5;
         setInterval(function() {
             pisteet += pisteetPerSecond;
             paivitaDisplay();
@@ -50,6 +48,8 @@ function ostapps() {
         alert("Ei tarpeeksi pisteitä!");
     }
 }
+
+
 
 paivitaDisplay();
 
@@ -82,4 +82,27 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
-        
+document.addEventListener('DOMContentLoaded', function() {
+    const achievementButton = document.getElementById('achievementButton');
+    const closeAchievementButton = document.getElementById('closeAchievement');
+    const achievementMenu = document.getElementById('achievementContent');
+
+    function openAchievementMenu() {
+        achievementMenu.classList.add('active');
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    function closeAchievementMenu() {
+        achievementMenu.classList.remove('active');
+        document.body.style.overflow = ''; 
+    }
+
+    achievementButton.addEventListener('click', openAchievementMenu);
+    closeAchievementButton.addEventListener('click', closeAchievementMenu);
+
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeAchievementMenu();
+        }
+    });
+});

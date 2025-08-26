@@ -12,14 +12,34 @@ body {
 }
 
 .keksi:active {
-    transform: scale(0.97);
-    transition: transform 0.05s ease-in-out;
+    transform: scale(0.96);
+    transition: transform 0.07s ease-in-out;
 }
 
 .achievement-button {
     background-color :#1856a3;
     width: 45px;
     height: 45px;
+    cursor: pointer;
+}
+
+.achievement-button:hover {
+    background-color: #4d85c9;
+}
+
+.achievement-content {
+    display: none;
+    width: 380px;
+    height: 300px;
+    background-color: rgba(124, 14, 14, 0.267);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.achievement-content.active {
+    display: block;
 }
 
 .container {
@@ -30,7 +50,7 @@ body {
     grid-row-gap: 0px;
 }
 
-.div1 { grid-area: 1 / 1 / 6 / 2; top: 300px; }
+.div1 { grid-area: 1 / 1 / 6 / 2; }
 
 .div2 { grid-area: 1 / 2 / 6 / 5; }
 
@@ -40,19 +60,18 @@ body {
             position: fixed;
             top: 20px;
             right: 20px;
-            background-color: #4a6fa5;
+            background-color: #1856a3;
             color: white;
-            border: none;
-            padding: 12px 16px;
+            padding: 8px 14px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
             z-index: 1000;
             transition: background-color 0.3s;
         }
 
         .menu-button:hover {
-            background-color: #3a5a80;
+            background-color: #4d85c9;
         }
 
         .menu-overlay {
@@ -79,7 +98,7 @@ body {
             right: -300px;
             width: 300px;
             height: 100%;
-            background-color: white;
+            background-color: rgb(66, 57, 57);
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
             z-index: 1002;
             transition: right 0.3s ease-in-out;
