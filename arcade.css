@@ -1,6 +1,7 @@
-body {
+html, body {
     margin: 0;
     overflow: hidden;
+    height: 100%;
 }
 
 ::-webkit-scrollbar {
@@ -36,7 +37,9 @@ body {
         "menu content"
         "footer footer";
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 250px 1fr; /* fixed */
+    grid-template-columns: 4% 1fr; /* fixed */
+    min-height: 100vh;
+    background-color: rgb(37, 36, 41);
 }
 
 .header {
@@ -84,7 +87,7 @@ h1 {
     grid-area: content;
     background-color: rgb(37, 36, 41);
     padding-left: 1rem;
-    height: 100%; /* fixed */
+    height: 100%;
 }
 
 .content > h2, .content > div > div > div > h2 {
