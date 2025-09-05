@@ -1,3 +1,7 @@
+<!DOCTYPE html>
+<html lang="fi">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <head>
 <link href="2048.css" rel="stylesheet">
 <title>yhet sauhut vielä</title>
@@ -9,7 +13,8 @@
   <div class="game">
     <div class="head">
       <div class="a"> yhet sauhut vielä <button class="info" onClick='info()'>i</button> <button id="repeat" class="info repeat" onClick='reset()'>↻</button></div>
-      <div class="score">pisteet:<br/><span id="value"></span></div>
+      <div class="score">pisteet:<br/><span id="value">0</span></div>
+      <div class="highscore">Ennätys:<br/><span id="highscore">0</span></div>
     </div>
 
     <div class="field">
@@ -44,14 +49,17 @@
   <div class='' id='status'>
   </div>
 <script>
-  window.onload = function() {
+  let newScore = 0;
+
+window.onload = function() {
     buildGridOverlay();                      
     cellCreator(2, 0);
-    directions();
-    score(0);
-  };
+    score();
+    let tallennaHigh = localStorage.getItem("high-score") || 0;
+    document.getElementById("highscore").innerText = tallennaHigh;
+};
 
-  function getTileImage(value) {
+function getTileImage(value) {
     switch(value) {
       case 2: return "kuvat/chesterfield.jpg";
       case 4: return "kuvat/winston.jpg";
@@ -61,16 +69,16 @@
       case 64: return "kuvat/pallmallred.png";
       case 128: return "kuvat/mallun-kultane.webp";
       case 256: return "kuvat/cameli.png";
-      case 512: return "kuvat/mallun.punanen.jpg";
+      case 512: return "kuvat/mallun-punanen.jpg";
       case 1024: return "kuvat/kuubalainen.jpg";
       case 2048: return "kuvat/piippu.jpg";
       default: return "images/default.png"; 
     }
-  }
-  function buildGridOverlay() {
+}
+
+function buildGridOverlay() {
     var size = 4;
     var table = document.createElement('DIV');
-
     table.className += 'grid';
     table.id = ' ';
     table.dataset.value = 0;
@@ -90,9 +98,9 @@
       document.body.appendChild(table);
     }
     return table;
-  }
+}
 
-  function cellCreator(c, timeOut) {
+function cellCreator(c, timeOut) {
     for (var i = 0; i < c; i++) {
       for (var value = 1; value < 2; value++) {
         var randomX = Math.floor((Math.random()*4)+1);
@@ -124,11 +132,11 @@
         }, 10); 
       }
     }
-  }
+}
 
-  document.onkeydown = directions;
+document.onkeydown = directions;
 
-  function directions(e) {
+function directions(e) {
     e = e || window.event;
     var d = 0;
     if (e.keyCode == '38') {   
@@ -175,9 +183,9 @@
       }
       cellReset();
     }
-  }
+}
 
-  function moveTilesMain(x, y, X, Y, xBorder, yBorder) {      
+function moveTilesMain(x, y, X, Y, xBorder, yBorder) {      
     var tile     = document.getElementById('tile_'+x +y);
     var checker  = document.getElementById(''+x +y);
     var xAround  = x+X;
@@ -188,7 +196,7 @@
       if (around.className == 'grid_cell active') {
         var aroundTile = document.getElementById('tile_'+xAround +yAround);
         if (aroundTile.dataset.value == tile.dataset.value) {
-          var value = tile.dataset.value*2;
+          var value = parseInt(tile.dataset.value) * 2;
           aroundTile.dataset.value = ''+value;
           aroundTile.className = 'tile '+value;
           aroundTile.innerHTML = `<img src="${getTileImage(value)}" alt="${value}">`;
@@ -197,9 +205,9 @@
           around.className  = 'grid_cell active merged';
           var grid = document.getElementById(' ');
           var scoreValue = parseInt(grid.dataset.value);
-          var newScore = value + scoreValue;
+          newScore = value + scoreValue;
           grid.dataset.value = newScore;
-          document.getElementById('value').innerHTML = ''+newScore;
+          score();
         } 
       } else if (around.className == 'grid_cell'){
         around.appendChild(tile);
@@ -208,9 +216,9 @@
         checker.className = 'grid_cell';
       }
     }  
-  }
+}
 
-  function cellReset() {
+function cellReset() {
     var count = 0;
     for (var x=1; x<5; x++) {
       for (var y=1; y<5; y++) {
@@ -227,21 +235,31 @@
     } else { 
       cellCreator(1, 1); 
     }
-  }
+}
 
-  function score() {
+function score() {
     var grid = document.getElementById(' ');
     var value = grid.dataset.value;
     document.getElementById('value').innerHTML = ''+value;
-  }
+    newScore = parseInt(value);
+    updateHighScore();
+}
 
-  function info() {
+function updateHighScore() {
+    let currentHighScore = parseInt(localStorage.getItem("high-score") || 0);
+    if (newScore > currentHighScore) {
+        localStorage.setItem("high-score", newScore);
+        document.getElementById("highscore").innerText = newScore;
+    }
+}
+
+function info() {
     setTimeout(function() {
       document.getElementById('description').classList.toggle('show');
     }, 10);  
-  }
+}
 
-  function reset() {
+function reset() {
     for (var x = 1; x < 5; x++) {
       for (var y = 1; y < 5; y++) {
         var resetter = document.getElementById(''+x +y);
@@ -253,9 +271,13 @@
     }
     document.getElementById('status').className = '';
     document.getElementById(' ').dataset.value = 0;
+    newScore = 0;
     score();
+    let savedHighScore = localStorage.getItem("high-score") || 0;
+    document.getElementById("highscore").innerText = savedHighScore;
     cellReset();
     cellCreator(2, 0);
-  }
+}
 </script>
 </body>
+</html>
