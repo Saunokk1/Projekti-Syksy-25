@@ -25,7 +25,7 @@ const updateFoodPosition = () => {
 }
 
 const handleGameOver = () => {
-    clearInterval(setIntervalId);
+    clearInterval(setIntervalId); 
     gameOver = true; 
     resetButton.style.display = 'inline';
 };

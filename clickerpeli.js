@@ -1,4 +1,4 @@
-let pisteet = 0;
+let pisteet = 1;
 let pisteetPerClick = 1;
 let ppchinta = 15;
 let pisteetPerSecond = 0;
@@ -9,6 +9,7 @@ const pisteetPerClickElement = document.getElementById('pisteetPerClick');
 const ppchintaElement = document.getElementById("ppchinta");
 const pisteetPerSecondElement = document.getElementById('pisteetPerSecond');
 const ppshintaElement = document.getElementById("ppshinta");
+const achievementElement1 = document.getElementById("achievement1");
 
 function paivitaDisplay() {
     pisteetElement.textContent = pisteet;
@@ -49,7 +50,12 @@ function ostapps() {
     }
 }
 
-
+function achievement11() {
+   if (pisteet >= 10) {
+    achievementElement1.innerHTML = "Ennätys saavutettu"
+   
+   }
+}
 
 paivitaDisplay();
 
