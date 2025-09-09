@@ -174,3 +174,30 @@ h2 {
     width: 1000px;
     background-color: white;
 }
+
+#play {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#huone {
+    background-color: gray;
+    width: 100%;
+    height: 100%;
+}
+
+#tklslogo {
+    width: 50rem;
+}
+
+#pelaanappi {
+    width: 15rem;
+}
+
+.scene {
+    display: none;
+}

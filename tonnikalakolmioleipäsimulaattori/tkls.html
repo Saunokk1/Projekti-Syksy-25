@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TKLS</title>
     <link rel="stylesheet" href="../arcade.css">
+    <script src="tkls.js" defer></script>
 </head>
 
 <style>
@@ -23,7 +24,21 @@
 
     <div class="content" id="playbox-parent">
 
-        <div class="playbox"></div>
+        <button id="defaultOpen" class="sceneChanger" onclick="sceneChanger(event, 'play')"></button>
+
+        <div class="playbox">
+
+            <div class="scene" id="play">
+                <img src="../kuvat/tkls LOGO.png" id="tklslogo">
+                <img src="../kuvat/pelaanappi.png" alt="" id="pelaanappi" onclick="sceneChanger(event, 'huone')" class="sceneChanger">
+            </div>
+
+            <div class="scene" id="huone">
+                <p>huone</p>
+            </div>
+
+        </div>
+        
 
     </div>
 </body>
