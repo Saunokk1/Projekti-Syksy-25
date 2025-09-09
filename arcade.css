@@ -162,3 +162,15 @@ h2 {
     width: 90vw;
     height: auto; 
 }
+
+#playbox-parent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playbox {
+    aspect-ratio: 16 / 9;
+    width: 1000px;
+    background-color: white;
+}
