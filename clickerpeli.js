@@ -50,7 +50,7 @@ function ostapps() {
     }
 }
 
-function achievement11() {
+function achievement1() {
    if (pisteet >= 10) {
     achievementElement1.innerHTML = "Ennätys saavutettu"
    
