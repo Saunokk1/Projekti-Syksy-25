@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TKLS</title>
+    <link rel="stylesheet" href="../arcade.css">
+    <script src="tkls.js" defer></script>
+</head>
+
+<style>
+
+</style>
+
+<body>
+    <div class="container">
+    <div class="header">
+        <h1>🕹️ Arcade</h1>  
+    </div>
+
+    <div class="menu">
+            
+    </div>
+
+    <div class="content" id="playbox-parent">
+
+        <button id="defaultOpen" class="sceneChanger" onclick="sceneChanger(event, 'play')"></button>
+
+        <div class="playbox">
+
+            <div class="scene" id="play">
+                <img src="../kuvat/tkls LOGO.png" id="tklslogo">
+                <img src="../kuvat/pelaanappi.png" alt="" id="pelaanappi" onclick="sceneChanger(event, 'huone')" class="sceneChanger">
+            </div>
+
+            <div class="scene" id="huone">
+                <p>huone</p>
+            </div>
+
+        </div>
+        
+
+    </div>
+</body>
+
+
+</html>
