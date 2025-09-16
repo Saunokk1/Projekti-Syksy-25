@@ -17,6 +17,8 @@
         <h3>Saavutukset</h3>
         <div class="1keksi">
             <p>Ensimmäinen muffinssi: <span id="achievement1">Ei saavutettu</span></p>
+            <p>5 Catchers: <span id="achievement2">Ei saavutettu</span></p>
+            <p>5 Cupcakes/Click: <span id="achievement3">Ei saavutettu</span></p>
         </div>
 
         </div>
@@ -24,9 +26,9 @@
 
     <div class="div1">
     <div class="stats">
-       Cupcakes: <span id="pisteet">0</span>
+       Cupcakes🧁: <span id="pisteet">0</span>
        Cupcakes/Click: <span id="pisteetPerClick">1</span>
-       Cupcakes/Second: <span id="pisteetPerSecond">0</span>
+       Cupcakes/0.5s: <span id="pisteetPerSecond">0</span>
     </div>
         <input type="image" class="keksi" onclick="lisääpiste()" src="kuvat/leipoja.png" alt="Klikkaa Minua!" style="width: 256px; 
         height: 256px; 
@@ -43,15 +45,17 @@
         <button class="close-button" id="closeButton">&times;</button>
         <div class="menu-content" id="menuContent">
             <div class="+1click">
-                <p>Hinta: <span id="ppchinta">15</span></p>
+                <p>Hinta: <span id="ppchinta">70</span></p>
                 <button class="button" onclick="ostappc()">+1 Cupcakes/Click</button>
             </div>
-
             <div class="+1autoclick">
-                <p>Hinta: <span id="ppshinta">75</span></p>
-                <button class="button" onclick="ostapps()">+1 Cupcakes/Second</button>
+                <p>Hinta: <span id="ppshinta">30</span></p>
+                <button class="button" onclick="ostapps()">+1 Catcher</button>
             </div>
-            
+            <div class="+5autoclick">
+                <p>Hinta: <span id="tehdashinta">200</span></p>
+                <button onclick="ostatehdas()">+1 Tehdas</button>
+            </div>
             <!--Kauppa-->
         </div>
     </div>
