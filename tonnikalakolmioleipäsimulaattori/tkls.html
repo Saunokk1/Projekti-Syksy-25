@@ -24,17 +24,15 @@
 
     <div class="content" id="playbox-parent">
 
-        <button id="defaultOpen" class="sceneChanger" onclick="sceneChanger(event, 'play')"></button>
-
         <div class="playbox">
 
             <div class="scene" id="play">
                 <img src="../kuvat/tkls LOGO.png" id="tklslogo">
-                <img src="../kuvat/pelaanappi.png" alt="" id="pelaanappi" onclick="sceneChanger(event, 'huone')" class="sceneChanger">
+                <img src="../kuvat/pelaanappi.png" alt="" id="pelaanappi" onclick="sceneChanger(event, 'play', 'huone')">
             </div>
 
             <div class="scene" id="huone">
-                <p>huone</p>
+                <div></div>
             </div>
 
         </div>

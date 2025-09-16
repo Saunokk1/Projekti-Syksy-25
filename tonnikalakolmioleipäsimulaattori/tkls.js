@@ -14,6 +14,8 @@
 
 document.getElementById("defaultOpen").click; */
 
+console.log('tkls.js loaded')
+
 let scenes, i, aloitus;
 
 scenes = document.getElementsByClassName("scene");
@@ -26,6 +28,10 @@ for (i = 0; scenes.length > i; i++) {
 
 aloitus.style.display = "flex"
 
-function sceneChanger(event, target) {
-    
+function sceneChanger(event, current, target) {
+    let sceneCurrent = document.getElementById(current)
+    let sceneto = document.getElementById(target)
+
+    sceneCurrent.style.display = 'none'
+    sceneto.style.display = 'block'
 }
