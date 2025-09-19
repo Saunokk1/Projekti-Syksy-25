@@ -3,41 +3,69 @@ let pisteetPerClick = 1;
 let ppchinta = 70;
 let pisteetPerSecond = 0;
 let ppshinta = 30;
-let tehdashinta = 200
+let tehdashinta = 325;
 let achievement1Awarded = false;
 let achievement2Awarded = false;
 let achievement3Awarded = false;
 let autoClickerInterval = null;
+let isToggled = false;
 
 const pisteetElement = document.getElementById('pisteet');
 const pisteetPerClickElement = document.getElementById('pisteetPerClick');
 const ppchintaElement = document.getElementById("ppchinta");
 const pisteetPerSecondElement = document.getElementById('pisteetPerSecond');
 const ppshintaElement = document.getElementById("ppshinta");
-const 
+const tehdashintaElement = document.getElementById("tehdashinta")
 const achievementElement1 = document.getElementById("achievement1");
 const achievementElement2 = document.getElementById("achievement2");
 const achievementElement3 = document.getElementById("achievement3");
+const kuva = document.getElementById("keksiid")
 
 function paivitaDisplay() {
     pisteetElement.textContent = pisteet;
+    pisteet = Math.round(pisteet);
     pisteetPerClickElement.textContent = pisteetPerClick;
     ppchintaElement.textContent = ppchinta;
+    ppchinta = Math.round(ppchinta);
     pisteetPerSecondElement.textContent = pisteetPerSecond;
     ppshintaElement.textContent = ppshinta;
+    ppshinta = Math.round(ppshinta);
+    tehdashintaElement.textContent = tehdashinta;
+    tehdashinta = Math.round(tehdashinta);
+}
+
+function paivitaVäri() {
+    if (pisteet < ppchinta) {
+        ppchintaElement.style.color = "red";
+    } else {
+        ppchintaElement.style.color = "green";
+    }
+    if (pisteet < ppshinta) {
+        ppshintaElement.style.color = "red";
+    } else {
+        ppshintaElement.style.color = "green"
+    }
+    if (pisteet < tehdashinta) {
+        tehdashintaElement.style.color = "red";
+    } else {
+        tehdashintaElement.style.color = "green";
+    }
 }
 
 function checkAchievements() {
     if (!achievement1Awarded && pisteet >= 1) {
         achievementElement1.textContent = "Aloitit Pelin!";
+        achievementElement1.style.color = "gold";
         achievement1Awarded = true;
     }
-    if (!achievement2Awarded && pisteetPerSecond >= 5) {
+    if (!achievement2Awarded && pisteetPerSecond >= 8) {
         achievementElement2.textContent = "Jidion Would Be Proud✓"
+        achievementElement2.style.color = "gold";
         achievement2Awarded = true;
     }
     if (!achievement3Awarded && pisteetPerClick >= 5) {
         achievementElement3.textContent = "Crazy Clicks!👆"
+        achievementElement3.style.color = "gold";
         achievement3Awarded = true;
     }
 }
@@ -46,6 +74,7 @@ function lisääpiste() {
     pisteet += pisteetPerClick;
     checkAchievements();
     paivitaDisplay();
+    paivitaVäri()
 }
 
 function ostappc() {
@@ -55,6 +84,7 @@ function ostappc() {
         ppchinta *= 3;
         checkAchievements();
         paivitaDisplay();
+        paivitaVäri();
     } else {
         alert("Ei tarpeeksi pisteitä!");
     }
@@ -74,7 +104,8 @@ function ostapps() {
             pisteet += pisteetPerSecond;
             checkAchievements();
             paivitaDisplay();
-        }, 500);
+            paivitaVäri();
+        }, 1000);
         
         checkAchievements();
         paivitaDisplay();
@@ -84,9 +115,9 @@ function ostapps() {
 }
 function ostatehdas() {
     if (pisteet >= tehdashinta) {
-        pisteet -= ppshinta;
-        pisteetPerSecond++;
-        ppshinta *= 1.5;
+        pisteet -= tehdashinta;
+        pisteetPerSecond += 5;
+        tehdashinta *= 4;
         
         if (autoClickerInterval) {
             clearInterval(autoClickerInterval);
@@ -96,17 +127,28 @@ function ostatehdas() {
             pisteet += pisteetPerSecond;
             checkAchievements();
             paivitaDisplay();
-        }, 500);
+        }, 1000);
         
         checkAchievements();
         paivitaDisplay();
+        paivitaVäri();
     } else {
         alert("Ei tarpeeksi pisteitä!");
     }
+}
 
+function vaihdakuva() {
+    if (isToggled === false) {
+        kuva.src = "kuvat/leipoja.png";
+        isToggled = true;
+    } else {
+        kuva.src = "kuvat/Bluecupcake.png";
+        isToggled = false;
+    }
 }
 
 paivitaDisplay();
+paivitaVäri();
 
 document.addEventListener('DOMContentLoaded', function() {
     const menuButton = document.getElementById('menuButton');
