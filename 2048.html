@@ -43,8 +43,10 @@
         <div class="cell"></div>
         <div class="cell"></div>
       </div>
+      <div class="katkaisuhoito">
+        <button onclick="katkaisuhoito()">katkaisuhoito</button>
+      </div>
     </div>
-    
   </div>
   <div class='' id='status'>
   </div>
@@ -234,6 +236,56 @@ function cellReset() {
       document.getElementById('status').className = 'lose';
     } else { 
       cellCreator(1, 1); 
+    }
+}
+
+function katkaisuhoito() {
+    if (document.getElementById('status').classList.contains('lose')) {
+        document.getElementById('status').innerText = "Peli on jo hävitty!";
+        setTimeout(() => {
+            document.getElementById('status').innerText = "";
+        }, 2000);
+        return;
+    }
+    
+    if (newScore < 1000) {
+        document.getElementById('status').innerText = "Tarvitset vähintään 1000 pistettä!";
+        setTimeout(() => {
+            document.getElementById('status').innerText = "";
+        }, 2000);
+        return;
+    }
+
+    newScore -= 1000;
+    document.getElementById(' ').dataset.value = newScore;
+    document.getElementById('value').innerHTML = newScore;
+
+    let tilesDeleted = false;
+    for (let x = 1; x <= 4; x++) {
+        for (let y = 1; y <= 4; y++) {
+            let cell = document.getElementById('' + x + y);
+            if (cell.className === 'grid_cell active') {
+                let tile = document.getElementById('tile_' + x + y);
+                let value = parseInt(tile.dataset.value);
+                if (value < 64) {
+                    cell.removeChild(tile);
+                    cell.className = 'grid_cell'; 
+                    tilesDeleted = true;
+                }
+            }
+        }
+    }
+
+    if (tilesDeleted) {
+        document.getElementById('status').innerText = "Kaikki alle 64 poistettu! (-1000 pistettä)";
+        setTimeout(() => {
+            document.getElementById('status').innerText = "";
+        }, 2000);
+    } else {
+        document.getElementById('status').innerText = "Ei poistettavia tiiliä! (-1000 pistettä)";
+        setTimeout(() => {
+            document.getElementById('status').innerText = "";
+        }, 2000);
     }
 }
 
