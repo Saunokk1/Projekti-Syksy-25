@@ -1,9 +1,22 @@
+@font-face {
+    font-family: "Quicksand";
+    src: url(Quicksand/Quicksand-VariableFont_wght.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Audiowide";
+    src: url(Audiowide/Audiowide-Regular.ttf);
+    font-weight: normal;
+}
+
 .header {
     background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border: 3px solid #444;
+  font-family: "Audiowide";
   border-radius: 10px;
   margin-bottom: 30px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px  #1856a3;
   grid-area: header;
 }
 
@@ -11,9 +24,29 @@ body {
     background-color: rgb(59, 57, 65);
 }
 
+button {
+    border-radius: 15px;
+}
+.buttonosto {
+    background-color: #1856a3;
+    scale: 1.2;
+}
+
+.buttonosto:hover {
+    background-color: #4d85c9;
+    filter: brightness(1.08);
+    transition: background-color 0.1s, filter 0.1s;
+}
+
 .keksi:active {
     transform: scale(0.96);
     transition: transform 0.07s ease-in-out;
+}
+
+.achievements {
+    font-size: 18px;
+    color:#91bbee;
+    font-family: "Quicksand"
 }
 
 .achievement-button {
@@ -38,8 +71,18 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
+h3 {
+    font-size: 24px;
+    font-family: "Audiowide";
+}
+
 .achievement-content.active {
     display: block;
+}
+
+.stats {
+    font-size: 18px;
+    font-family: "Audiowide"
 }
 
 .container {
@@ -105,14 +148,13 @@ body {
             overflow-y: auto;
         }
 
-        .slide-menu.active {
-            right: 0;
+        .slide-menu p {
+            font-size: 20px;
+            color: #86b8e685;
         }
 
-        .menu-title {
-            margin: 0;
-            font-size: 20px;
-            color: #333;
+        .slide-menu.active {
+            right: 0;
         }
 
         .close-button {

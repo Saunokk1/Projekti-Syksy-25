@@ -3,20 +3,22 @@
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
     <link rel="stylesheet" href="clickerpeli.css" >
-    <link rel="icon" type="image/x-icon" href="" style="border-radius: 25px;">
-    <title>Clickerpeli</title>
+    <link rel="icon" type="image/x-icon" href="kuvat/clickicon.ico" style="border-radius: 25px;">
+    <title>Cupcake Clicker</title>
 </head>
 <body>
 <div class="container">
     <div class="div2">
-    <div class="header"><h1>Clickerpeli</h1></div>
+    <div class="header"><h1>Cupcake clicker</h1></div>
     <button class="achievement-button" id="achievementButton">🏆</button>
 
     <div class="achievement-content" id="achievementContent">
         <button class="close-button" id="closeAchievement">&times;</button>
         <h3>Saavutukset</h3>
-        <div class="1keksi">
+        <div class="achievements">
             <p>Ensimmäinen muffinssi: <span id="achievement1">Ei saavutettu</span></p>
+            <p>8 Cupcakes/Second: <span id="achievement2">Ei saavutettu</span></p>
+            <p>5 Cupcakes/Click: <span id="achievement3">Ei saavutettu</span></p>
         </div>
 
         </div>
@@ -24,11 +26,11 @@
 
     <div class="div1">
     <div class="stats">
-       Cupcakes: <span id="pisteet">0</span>
+       Cupcakes🧁: <span id="pisteet">0</span>
        Cupcakes/Click: <span id="pisteetPerClick">1</span>
        Cupcakes/Second: <span id="pisteetPerSecond">0</span>
     </div>
-        <input type="image" class="keksi" onclick="lisääpiste()" src="kuvat/leipoja.png" alt="Klikkaa Minua!" style="width: 256px; 
+        <input type="image" class="keksi" id="keksiid" onclick="lisääpiste()" src="kuvat/Bluecupcake.png" alt="Klikkaa Minua!" style="width: 256px; 
         height: 256px; 
         border-radius: 128px;  
         cursor: pointer;  
@@ -42,16 +44,22 @@
     <div class="slide-menu" id="slideMenu">
         <button class="close-button" id="closeButton">&times;</button>
         <div class="menu-content" id="menuContent">
-            <div class="+1click">
-                <p>Hinta: <span id="ppchinta">15</span></p>
-                <button class="button" onclick="ostappc()">+1 Cupcakes/Click</button>
-            </div>
-
             <div class="+1autoclick">
-                <p>Hinta: <span id="ppshinta">75</span></p>
-                <button class="button" onclick="ostapps()">+1 Cupcakes/Second</button>
+                <p>Worker: <span id="ppshinta">30</span></p>
+                <button class="buttonosto" onclick="ostapps()">+1 Autoclick</button>
             </div>
-            
+            <div class="+1click">
+                <p>Click Power: <span id="ppchinta">70</span></p>
+                <button class="buttonosto" onclick="ostappc()">+1 Cupcakes/Click</button>
+            </div>
+            <div class="+5autoclick">
+                <p>Factory: <span id="tehdashinta">325</span></p>
+                <button class="buttonosto" onclick="ostatehdas()">+5 Autoclick</button>
+            </div>
+            <div>
+                <p>Vaihda klikattava</p>
+                <button class="buttonosto" onclick="vaihdakuva()">Vaihda</button>
+            </div>
             <!--Kauppa-->
         </div>
     </div>

@@ -62,6 +62,12 @@ body, html {
   grid-area: statsbox
 }
 
+.stats button {
+  border-radius: 18px;
+  margin-left: 56px;
+  background-color: rgb(158, 185, 4);
+}
+
 .pisteet {
   font-size: 15px;
   font-family: "Audiowide";
