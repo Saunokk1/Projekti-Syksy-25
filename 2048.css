@@ -1,13 +1,33 @@
+@font-face {
+    font-family: "Quicksand";
+    src: url(Quicksand/Quicksand-VariableFont_wght.ttf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Audiowide";
+    src: url(Audiowide/Audiowide-Regular.ttf);
+    font-weight: normal;
+}
+
 body {
-  background-color: #3c3c3cdb;
+  background-color: rgb(37, 36, 41);
   overflow: hidden;
   padding: 0;
   margin: 0;
 }
 
+.katkaisuhoito {
+  background-color: #333;
+  color: grey;
+  height: 26px;
+  border-radius: 8px;
+  justify-content: center;
+  margin-top: 5px;
+}
 
-/* head */
 .head {
+  background-color: rgb(53, 52, 57);
   height: 120px;
   width: 510px;
   margin-left: auto;
@@ -17,6 +37,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 20px;
+}
+
+.header {
+  font-family: "Audiowide";
+  border-radius: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  grid-area: header;
 }
 
 div.game {
@@ -89,11 +118,9 @@ div.description {
 
 .a {
     display: flex;
-    
   font-size: 40px;
   font-weight: 200;
   margin-right: 15px
-  
 }
 
 .score {
@@ -106,9 +133,21 @@ div.description {
   font-size: 30px;
   color: grey;
   text-align: center;
+  margin-right: 15px;
 }
 
-
+.highscore {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  top: 10px;
+  font-family: nunito;
+  font-weight: 400;
+  font-size: 30px;
+  color: grey;
+  text-align: center;
+  margin-right: 8px;
+}
 
 /* field */
 .field, .grid {

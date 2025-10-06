@@ -192,6 +192,11 @@ h2 {
     background-image: url(./kuvat/huone.png);
 }
 
+#tietokone {
+    width: 100%;
+    height: 100%;
+}
+
 #tklslogo {
     width: 50rem;
 }
@@ -202,4 +207,96 @@ h2 {
 
 .scene {
     display: none;
+}
+
+#tietokonevaihto {
+    height: 150px;
+    aspect-ratio: 2;
+    position: fixed;
+    top: 380px;
+    margin-left: 75px;
+    cursor: pointer;
+}
+
+#tietokone {
+    background-color: white;
+    -webkit-text-fill-color: black;
+}
+
+#netti {
+    padding: 1rem;
+}
+
+#netti > h1 {
+    -webkit-text-fill-color: black;
+    font-family: sans-serif;
+}
+
+#teerahaa {
+    width: 400px;
+    padding-bottom: 2rem;
+}
+
+.kolikko {
+    padding-left: 2rem;
+}
+
+.kolikko > img {
+    height: 200px;
+}
+
+.kolikko > button {
+    width: 200px;
+    border: none;
+    background-color: greenyellow;
+}
+
+.kolikko > button:hover {
+    background-color: rgb(148, 220, 41);
+    cursor: pointer;
+}
+
+#ui {
+    position: absolute;
+    display: none;
+}
+
+#stats {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding-left: 58rem;
+    padding-top: 1rem;
+}
+
+#cashUI {
+    display: flex;
+    
+}
+
+#cashUI > img {
+    width: 50px;
+}
+
+#leipaUI {
+    display: flex;
+}
+
+#leipaUI > img {
+    width: 50px;
+}
+
+#coinsUI {
+    display: flex;
+}
+
+#coinUI > img {
+    width: 50px;
+}
+
+#poweroff {
+    width: 4rem;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    cursor: pointer;
 }

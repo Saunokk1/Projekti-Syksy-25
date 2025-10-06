@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TKLS</title>
     <link rel="stylesheet" href="../arcade.css">
+    <script src="money.js" defer></script>
     <script src="tkls.js" defer></script>
 </head>
 
@@ -26,13 +27,43 @@
 
         <div class="playbox">
 
+            <div id="ui">
+                <div id="stats">
+                    <div id="cashUI">
+                        <p id="cash"></p>
+                        <img src="../kuvat/cash.png" alt="">
+                    </div>
+                    <div id="leipaUI">
+                        <p id="leipa"></p>
+                        <img src="../kuvat/kolmioleipä.png" alt="">
+                    </div>
+                    <div id="coinUI">
+                        <p id="coins"></p>
+                        <img src="../kuvat/TKLScoin.png" alt="">
+                    </div>
+                </div>
+            </div>
+
             <div class="scene" id="play">
                 <img src="../kuvat/tkls LOGO.png" id="tklslogo">
                 <img src="../kuvat/pelaanappi.png" alt="" id="pelaanappi" onclick="sceneChanger(event, 'play', 'huone')">
             </div>
 
             <div class="scene" id="huone">
-                <div></div>
+                <div id="tietokonevaihto" onclick="sceneChanger(event, 'huone', 'tietokone')"></div>
+            </div>
+
+            <div class="scene" id="tietokone">
+                <div id="netti">
+                    <img id="teerahaa" src="../kuvat/teerahaa.png" alt="">
+                    <div class="kolikko">
+                        <img src="../kuvat/TKLScoin.png" alt="">
+                        <p>TKLS Coin</p>
+                        <p id="arvo"></p>
+                        <button>Osta</button>
+                    </div>
+                </div>
+                <img src="../kuvat/poweroff.png" alt="" id="poweroff" onclick="sceneChanger(event, 'tietokone', 'huone')">
             </div>
 
         </div>

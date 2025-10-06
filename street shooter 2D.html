@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2D Shooter Game</title>
+    <style>
+      canvas {
+        display: block;
+        margin: 0 auto;
+        background: rgb(255, 255, 255);
+      }
+      body {
+        margin: 0;
+        overflow: hidden;
+        background: #585858;
+        color: white;
+        font-family: Arial, sans-serif;
+      }
+    </style>
+    <link rel="stylesheet" href="Projekti-Syksy-25/arcade.css">
+</head>
+<body>
+ 
+        <h1>🕹️ Arcade</h1>  
+  
+    <a href="./index.html" style="position: absolute;">BACK TO MENU</a>
+   
+     
+
+  <H1 style="position: absolute; left: 450px;">Street Shooter 2D</H1>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+    <script>
+      const canvas = document.getElementById('gameCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Load sprite images
+      const idleImg = new Image();
+      idleImg.src = 'sprites/prone_animaatio.png';
+      
+      const runningImg = new Image();
+      runningImg.src = 'sprites/running_animation.png';
+
+      const runningImgLeft = new Image();
+      runningImgLeft.src = 'sprites/running animation oikeel.png';
+
+      const enemyImg = new Image();
+      enemyImg.src = 'sprites/running animation vihu.png';
+
+      const deadImg = new Image();
+      deadImg.src = 'sprites/kuollu animaatio.png';
+      
+      // Sprite configuration
+      const SCALE = 3.0; // Scale factor to make player bigger
+      const spriteConfig = {
+        idle: {
+          img: idleImg,
+          frameWidth: 30,
+          frameHeight: 30,
+          frames: { start: 0, count: 2 }, // Now 2 frames for idle
+          animationSpeed: 5
+        },
+        moveLeft: {
+          img: runningImgLeft,
+          frameWidth: 30,
+          frameHeight: 30,
+          frames: { start: 0, count: 4 }, // Assuming 4 frames for running left
+          animationSpeed: 5
+        },
+        moveRight: {
+          img: runningImg,
+          frameWidth: 30,
+          frameHeight: 30,
+          frames: { start: 0, count: 4 }, // Assuming next 4 frames for running right
+          animationSpeed: 5
+        },
+        jump: {
+          img: idleImg,
+          frameWidth: 50,
+          frameHeight: 20,
+          frames: { start: 0, count: 1 }, // Jump frame at index 2
+          animationSpeed: 10
+        },
+        dead: {
+          img: deadImg,
+          frameWidth: 30,
+          frameHeight: 30,
+          frames: { start: 0, count: 7 }, 
+          animationSpeed: 7
+        }
+      }
+      
+      // Enemy configuration with states
+      const enemyConfig = {
+        alive: {
+          img: enemyImg,
+          frameWidth: 30,
+          frameHeight: 30,
+          frames: { start: 0, count: 4 },
+          animationSpeed: 5
+        },
+        dead: {
+          img: deadImg,
+          frameWidth: 30,
+          frameHeight: 30,
+          frames: { start: 0, count: 7 }, // Updated to 7 frames
+          animationSpeed: 5
+        }
+      };
+      
+      // Game variables
+      let player = {
+        x: 400, 
+        y: 500, 
+        width: 50 * SCALE, 
+        height: 20 * SCALE,
+        state: 'idle',
+        frameIndex: 0,
+        animationCounter: 0,
+        isJumping: false,
+        vy: 0
+      };
+      let bullets = [];
+      let enemies = [];
+      let bloodParticles = []; // New array for blood particles
+      let score = 0;
+      
+      // Key controls
+      let keys = {};
+      document.addEventListener('keydown', (e) => keys[e.key] = true);
+      document.addEventListener('keyup', (e) => keys[e.key] = false);
+
+      // Create enemies
+      function spawnEnemy() {
+        const x = 0;
+        enemies.push({ 
+          x, 
+          y: 500, 
+          width: enemyConfig.alive.frameWidth * SCALE, 
+          height: enemyConfig.alive.frameHeight * SCALE,
+          state: 'alive', // Add state property
+          frameIndex: 0,
+          animationCounter: 0,
+          isDeadAnimationComplete: false, // Track if death animation is done
+          deathTimer: 0 // Timer to keep enemy on screen after death
+        });
+      }
+      
+      // Create blood particles when enemy dies
+      function createBloodParticles(x, y) {
+        for (let i = 0; i < 3; i++) {
+          bloodParticles.push({
+            x: x,
+            y: y,
+            vx: (Math.random() - 0.5) * 8, // Random horizontal velocity
+            vy: (Math.random() - 0.5) * 8 - 4, // Random vertical velocity (mostly upward)
+            size: 8 + Math.random() * 4, // Random size between 8-12
+            isFrozen: false,
+            color: `rgb(${150 + Math.random() * 105}, 0, 0)` // Dark red to bright red
+          });
+        }
+      }
+      
+      // Update game state
+      function update() {
+        // Handle player movement and states
+        let moving = false;
+        let newState = player.state;
+        
+        if (keys['ArrowLeft'] && player.x > 0) {
+          player.x -= 5;
+          newState = 'moveLeft';
+          moving = true;
+        }
+        if (keys['ArrowRight'] && player.x < canvas.width - player.width) {
+          player.x += 5;
+          newState = 'moveRight';
+          moving = true;
+        }
+        if (keys['ArrowUp'] && !player.isJumping) {
+          player.isJumping = true;
+          newState = 'jump';
+          player.vy = -15; // jump strength
+        }
+        
+        // Gravity and jumping
+        if (player.isJumping) {
+          player.vy += 1; // gravity
+          player.y += player.vy;
+
+          // Ground collision
+          if (player.y >= 500) { // ground level
+            player.y = 500;
+            player.isJumping = false;
+            player.vy = 0;
+          }
+        }
+        
+        // Reset to idle if not moving
+        if (!moving && !player.isJumping) {
+          newState = 'idle';
+        }
+        
+        // Update state if changed
+        if (newState !== player.state) {
+          player.state = newState;
+          player.frameIndex = 0;
+          player.animationCounter = 0;
+
+          const config = spriteConfig[player.state];
+          player.width = config.frameWidth * SCALE;
+          player.height = config.frameHeight * SCALE;
+        }
+        
+        // Shoot bullets
+        if (keys[' ']) {
+          bullets.push({ 
+            x: player.x + player.width / 2 - 5, 
+            y: player.y, 
+            width: 10, 
+            height: 20, 
+            color: 'yellow' 
+          });
+          keys[' '] = false; 
+          setTimeout(() => keys[' '] = false, 200); 
+        }
+
+        // Move bullets
+        bullets.forEach((bullet, index) => {
+          bullet.x -= 10;
+          if (bullet.x > canvas.width) bullets.splice(index, 1);
+        });
+
+        // Move and animate enemies
+        for (let i = enemies.length - 1; i >= 0; i--) {
+          const enemy = enemies[i];
+          
+          // Skip if dead animation is complete and timer expired
+          if (enemy.isDeadAnimationComplete && enemy.deathTimer >= 60) {
+            enemies.splice(i, 1);
+            continue;
+          }
+          
+          // Only move if alive
+          if (enemy.state === 'alive') {
+            enemy.x += 2;
+            if (enemy.x > canvas.width) {
+              enemies.splice(i, 1);
+              continue;
+            }
+          }
+          
+          // Get the current config based on enemy state
+          const config = enemyConfig[enemy.state];
+          
+          // Update animation
+          if (!enemy.isDeadAnimationComplete) {
+            enemy.animationCounter++;
+            if (enemy.animationCounter >= config.animationSpeed) {
+              enemy.animationCounter = 0;
+              enemy.frameIndex++;
+              
+              // Handle death animation completion
+              if (enemy.state === 'dead') {
+                if (enemy.frameIndex >= config.frames.count) {
+                  // Freeze on last frame
+                  enemy.frameIndex = config.frames.count - 1;
+                  enemy.isDeadAnimationComplete = true;
+                }
+              } else {
+                // Loop animation for alive state
+                enemy.frameIndex %= config.frames.count;
+              }
+            }
+          } else {
+            // Increment death timer when animation is complete
+            enemy.deathTimer++;
+          }
+        }
+
+        // Update blood particles
+        bloodParticles.forEach(particle => {
+          if (!particle.isFrozen) {
+            // Apply physics
+            particle.x += particle.vx;
+            particle.y += particle.vy;
+            particle.vy += 0.3; // Gravity
+            
+            // Check if hit the ground or wall
+            if (particle.y >= 580 || particle.x <= 0 || particle.x >= canvas.width) {
+              particle.isFrozen = true;
+              // Ensure particle stays within bounds
+              if (particle.y > 580) particle.y = 580;
+              if (particle.x < 0) particle.x = 0;
+              if (particle.x > canvas.width) particle.x = canvas.width;
+            }
+          }
+        });
+
+        // Check collisions
+        bullets.forEach((bullet, bIndex) => {
+          enemies.forEach((enemy, eIndex) => {
+            // Skip if enemy is already dead
+            if (enemy.state !== 'alive') return;
+            
+            if (
+              bullet.x < enemy.x + enemy.width &&
+              bullet.x + bullet.width > enemy.x &&
+              bullet.y < enemy.y + enemy.height &&
+              bullet.y + bullet.height > enemy.y
+            ) {
+              bullets.splice(bIndex, 1);
+              // Set enemy to dead state
+              enemy.state = 'dead';
+              enemy.frameIndex = 0;
+              enemy.animationCounter = 0;
+              score++;
+              
+              // Create blood particles at enemy position
+              createBloodParticles(
+                enemy.x + enemy.width / 2,
+                enemy.y + enemy.height / -3,
+              );
+            }
+          });
+        });
+        
+        // Update player animation
+        updatePlayerAnimation();
+      }
+    
+      // Update player animation frame
+      function updatePlayerAnimation() {
+        const config = spriteConfig[player.state];
+        
+        player.animationCounter++;
+        if (player.animationCounter >= config.animationSpeed) {
+          player.animationCounter = 0;
+          player.frameIndex = (player.frameIndex + 1) % config.frames.count;
+        }
+      }
+
+      // Draw game objects
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw player sprite
+        const config = spriteConfig[player.state];
+        if (config.img.complete) {
+          const frameX = (config.frames.start + player.frameIndex) * config.frameWidth;
+          
+          ctx.drawImage(
+            config.img,
+            frameX, 0, // Source x, y
+            config.frameWidth, config.frameHeight, // Source width, height
+            player.x, player.y, // Destination x, y
+            player.width, player.height // Destination width, height (scaled)
+          );
+        } else {
+          // Fallback to rectangle if image not loaded
+          ctx.fillStyle = 'green';
+          ctx.fillRect(player.x, player.y, player.width, player.height);
+        }
+
+        // Draw bullets
+        bullets.forEach(bullet => {
+          ctx.fillStyle = bullet.color;
+          ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        });
+
+        // Draw enemies
+        enemies.forEach(enemy => {
+          const config = enemyConfig[enemy.state];
+          if (config && config.img.complete) {
+            const frameX = (config.frames.start + enemy.frameIndex) * config.frameWidth;
+            ctx.drawImage(
+              config.img,
+              frameX, 0, // source x,y
+              config.frameWidth, config.frameHeight, // source width,height
+              enemy.x, enemy.y, // destination x,y
+              enemy.width, enemy.height // destination width,height
+            );
+          } else {
+            // fallback rectangle
+            ctx.fillStyle = enemy.state === 'dead' ? 'gray' : 'red';
+            ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+          }
+        });
+
+        // Draw blood particles
+        bloodParticles.forEach(particle => {
+          ctx.fillStyle = particle.color;
+          ctx.fillRect(particle.x, particle.y, particle.size, particle.size);
+        });
+
+        // Draw score
+        ctx.fillStyle = 'white';
+        ctx.font = '20px Arial';
+        ctx.fillText(`Score: ${score}`, 10, 30);
+      }
+
+      // Game loop
+      function gameLoop() {
+        update();
+        draw();
+        requestAnimationFrame(gameLoop);
+      }
+
+      // Start game
+      setInterval(spawnEnemy, 1000); // Spawn enemies every second
+      gameLoop();
+    </script>
+</body>
+</html>

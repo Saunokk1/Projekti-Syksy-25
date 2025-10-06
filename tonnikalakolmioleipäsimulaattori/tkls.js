@@ -28,10 +28,20 @@ for (i = 0; scenes.length > i; i++) {
 
 aloitus.style.display = "flex"
 
+let tklscoin = 0
+i = 0
+
+while (i = 0) {
+    tklscoin += Math.random()
+}
+
 function sceneChanger(event, current, target) {
     let sceneCurrent = document.getElementById(current)
     let sceneto = document.getElementById(target)
 
     sceneCurrent.style.display = 'none'
     sceneto.style.display = 'block'
+    document.getElementById('ui').style.display = 'block'
 }
+
+
